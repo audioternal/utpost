@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import fs from 'fs';
+import matter from 'gray-matter';
+import { marked } from 'marked';
+const file = fs.readFileSync('./content/pages/contact.md', 'utf-8');
+const { data, content } = matter(file);
+const html = marked(content);
+---
+<BaseLayout>
+  <h1>{data.title}</h1>
+  <div innerHTML={html} />
+  <form id="contact-form" style="margin-top:2em;max-width:400px;">
+    <label for="name">Name:</label><br />
+    <input type="text" id="name" name="name" required style="width:100%;margin-bottom:1em;" /><br />
+    <label for="email">Email:</label><br />
+    <input type="email" id="email" name="email" required style="width:100%;margin-bottom:1em;" /><br />
+    <label for="message">Message:</label><br />
+    <textarea id="message" name="message" required rows="5" style="width:100%;margin-bottom:1em;"></textarea><br />
+    <button type="submit">Send</button>
+  </form>
+  <div id="thankyou-message" style="display:none;margin-top:1em;color:green;">Thank you for your message!</div>
+  <p>Email: <a href={`mailto:${data.email}`}>{data.email}</a></p>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('contact-form');
+      const thankyou = document.getElementById('thankyou-message');
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        form.style.display = 'none';
+        thankyou.style.display = 'block';
+      });
+    });
+  </script>
+</BaseLayout> 

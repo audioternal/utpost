@@ -3,11 +3,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import fs from 'fs';
 import matter from 'gray-matter';
 import { marked } from 'marked';
-const file = fs.readFileSync('./content/pages/home.md', 'utf-8');
+const file = fs.readFileSync('./content/pages/about.md', 'utf-8');
 const { data, content } = matter(file);
 const html = marked(content);
 ---
 <BaseLayout>
-	<h1>{data.title}</h1>
-	<div innerHTML={html} />
-</BaseLayout>
+  <h1>{data.title}</h1>
+  <div innerHTML={html} />
+</BaseLayout> 
