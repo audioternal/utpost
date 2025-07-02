@@ -99,6 +99,14 @@ Visit [http://localhost:4321](http://localhost:4321) in your browser.
 ## Troubleshooting
 - **Markdown rendering:** If you see errors about `Astro.renderMarkdown` or `<Markdown>`, make sure you are using the `marked` package to render Markdown to HTML, and use `innerHTML` to display it. This project does not use Astro's built-in Markdown renderer for dynamic content.
 - If you have issues with Node.js versions, always run `nvm use 20` before starting the dev server.
+- **TinaCMS admin not working locally?**
+  - If you get errors about missing client ID or token, or cannot access `/admin`, try running:
+    ```sh
+    npx @tinacms/cli init backend
+    ```
+    - This will help you set up the backend, prompt for your Tina Cloud Client ID and Token, and update your `.env` file.
+    - You can create a new token in your Tina Cloud dashboard under your project's "Tokens" section: [Tina Cloud Projects](https://app.tina.io/projects/new)
+    - Make sure to push the generated `tina-lock.json` file to your GitHub repository.
 
 ---
 
@@ -116,11 +124,15 @@ Visit [http://localhost:4321](http://localhost:4321) in your browser.
 
 ### 2. Configure Environment Variables
 - In the `wretched-wind` directory, create a file named `.env` if it doesn't exist.
-- Add your Tina Cloud Application ID (Client ID) to the file:
+- Add your Tina Cloud Application ID (Client ID) and Token to the file:
   ```env
   TINA_PUBLIC_CLIENT_ID=your-tina-client-id
   TINA_TOKEN=your-tina-token  # See note below
   ```
-- **Note:** If you cannot find a `TINA_TOKEN` in the Tina Cloud dashboard, check the Tina documentation or support. Some Tina setups may not require a token for public content editing, or the token may be provided only after connecting your repo and configuring access. If Tina only provides a Client ID, you can try omitting the token or consult [Tina Cloud docs](https://tina.io/docs/tina-cloud/overview/) for the latest instructions.
+- **Note:** If you cannot find a `TINA_TOKEN` in the Tina Cloud dashboard, you may need to generate one. Go to your Tina Cloud project, then to the "Tokens" section, and create a new token. If you still have issues, try running:
+  ```sh
+  npx @tinacms/cli init backend
+  ```
+  This command will prompt you for your Client ID and Token (you can create a new project and token at [Tina Cloud Projects](https://app.tina.io/projects/new)). It will also update your `.env` file and install any needed dependencies. You may also need to push the generated `tina-lock.json` file to your GitHub repository.
 
 ```
