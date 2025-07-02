@@ -79,8 +79,11 @@ Visit [http://localhost:4321](http://localhost:4321) in your browser.
 ### Set Up GitHub Secrets
 - In your repo settings, add:
   - `TINA_PUBLIC_CLIENT_ID`
-  - `TINA_TOKEN`
+  - `TINA_TOKEN` *(see note below)*
 - These are required for TinaCMS to work in production. Get them from your [Tina Cloud dashboard](https://app.tina.io/projects).
+
+**Important:**
+- To push workflow files (like `.github/workflows/deploy.yml`) to GitHub, your Personal Access Token (PAT) must have the `workflow` scope enabled. You can set this when creating or editing your token at [GitHub PAT settings](https://github.com/settings/tokens). Without this scope, pushes that add or update workflow files will be rejected.
 
 ### Custom Domain
 - In your GitHub repo, go to **Settings > Pages** and set the custom domain to `www.utpost.net`.
@@ -102,5 +105,22 @@ Visit [http://localhost:4321](http://localhost:4321) in your browser.
 ## Support & Contributions
 - This project is open source. Contributions and suggestions are welcome!
 - For help, open an issue on GitHub or contact the maintainers.
+
+---
+
+## TinaCMS Setup
+
+### 1. Create a TinaCMS Account
+- Go to [Tina Cloud](https://app.tina.io/) and sign up or log in.
+- Create a new project and connect it to your GitHub repository.
+
+### 2. Configure Environment Variables
+- In the `wretched-wind` directory, create a file named `.env` if it doesn't exist.
+- Add your Tina Cloud Application ID (Client ID) to the file:
+  ```env
+  TINA_PUBLIC_CLIENT_ID=your-tina-client-id
+  TINA_TOKEN=your-tina-token  # See note below
+  ```
+- **Note:** If you cannot find a `TINA_TOKEN` in the Tina Cloud dashboard, check the Tina documentation or support. Some Tina setups may not require a token for public content editing, or the token may be provided only after connecting your repo and configuring access. If Tina only provides a Client ID, you can try omitting the token or consult [Tina Cloud docs](https://tina.io/docs/tina-cloud/overview/) for the latest instructions.
 
 ```
